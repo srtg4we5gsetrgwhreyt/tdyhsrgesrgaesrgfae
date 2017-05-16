@@ -32,7 +32,7 @@ shinyURL.server = function(session, options) {
   url = .encodeURL(session, inputId)
   
   ## use TinyURL for shortening the URL
-  .queryTinyURL(session)
+  #.queryTinyURL(session)
   
   ## Initial invalidation needed to execute scheduled input updates when the 
   ## browser is refreshed switched off because it interferes with dynamic UIs 
@@ -80,7 +80,7 @@ shinyURL.server = function(session, options) {
     
     q = if (is.list(q)) {
       ## checkbox group or multiple select
-      unlist(q, use.names=FALSE) 
+      unlist(q, use.names=FALSE)
     }
     else {
       ## decode range vectors (sliders and dates)
@@ -180,31 +180,31 @@ shinyURL.server = function(session, options) {
 }
 
 
-.queryTinyURL = function(session) {
-  input = session$input
-  .busyMsg = "Please wait..."
-  
-  ## construct a query string from the current URL
-  tinyURLquery = eventReactive(input$.getTinyURL, {
-    sprintf("http://tinyurl.com/api-create.php?url=%s", input[[inputId]]) 
-  })
-  
-  ## set busy message
-  observeEvent(tinyURLquery(), {
-    updateTextInput(session, inputId, value=.busyMsg)
-    
-    ## resume the observer only after .busyMsg is set
-    session$onFlushed(function() {
-      runTinyURLquery$resume()
-    })
-  })
-  
-  ## query TinyURL
-  runTinyURLquery = observe({
-    tinyurl = tryCatch(getURL(tinyURLquery()), error = function(e) "Error fetching tinyURL!")
-    updateTextInput(session, inputId, value=tinyurl)
-    runTinyURLquery$suspend()
-  }, suspended=TRUE)
-  
-  invisible()
-}
+# .queryTinyURL = function(session) {
+#   input = session$input
+#   .busyMsg = "Please wait..."
+#   
+#   ## construct a query string from the current URL
+#   tinyURLquery = eventReactive(input$.getTinyURL, {
+#     sprintf("http://tinyurl.com/api-create.php?url=%s", input[[inputId]]) 
+#   })
+#   
+#   ## set busy message
+#   observeEvent(tinyURLquery(), {
+#     updateTextInput(session, inputId, value=.busyMsg)
+#     
+#     ## resume the observer only after .busyMsg is set
+#     session$onFlushed(function() {
+#       runTinyURLquery$resume()
+#     })
+#   })
+#   
+#   ## query TinyURL
+#   runTinyURLquery = observe({
+#     tinyurl = tryCatch(getURL(tinyURLquery()), error = function(e) "Error fetching tinyURL!")
+#     updateTextInput(session, inputId, value=tinyurl)
+#     runTinyURLquery$suspend()
+#   }, suspended=TRUE)
+#   
+#   invisible()
+# }
