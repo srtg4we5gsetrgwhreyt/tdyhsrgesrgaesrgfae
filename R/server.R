@@ -1,3 +1,5 @@
+options(scipen=999)
+
 #' @details The \code{shinyURL.server} method contains server logic for encoding
 #'   and restoring the widgets' values. It is called from inside the app's 
 #'   server script, and can take the \code{session} objects as argument.
