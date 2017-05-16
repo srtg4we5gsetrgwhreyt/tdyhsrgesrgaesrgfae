@@ -109,6 +109,7 @@ shinyURL.server = function(session, options) {
 
 
 .encodeURL = function(session, inputId) {
+  options(scipen=999)
   clientData = isolate(reactiveValuesToList(session$clientData))
   
   ## base URL which is not supposed to change

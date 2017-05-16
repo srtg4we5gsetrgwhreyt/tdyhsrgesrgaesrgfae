@@ -1,3 +1,5 @@
+options(scipen=999)
+
 #' @details The \code{shinyURL.ui} widget consists of a text field containing an
 #'   URL to the app's current view state.  By default it also features the 
 #'   convenience \sQuote{Copy} button for copying the URL to clipboard, and a 
