@@ -168,8 +168,8 @@ shinyURL.server = function(session, options) {
   
   observe({
     debugMsg(".updateURL")
-    #updateTextInput(session, inputId, value = url())
-    updateTextInput(session, ".shinyURL.queryString", value = queryString())
+    updateTextInput(session, inputId, value = url())
+    #updateTextInput(session, ".shinyURL.queryString", value = queryString())
   }, priority = -999)
   
   url = reactive({
