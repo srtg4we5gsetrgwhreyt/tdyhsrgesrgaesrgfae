@@ -135,6 +135,10 @@ shinyURL.server = function(session, options) {
     idx = grep("_mouse_(over|out)$", names(inputValues))
     if ( length(idx) > 0 ) inputValues = inputValues[-idx]
     
+    ## remove dygraph specific inputs
+    idx = grep("_date_window$", names(inputValues))
+    if ( length(idx) > 0 ) inputValues = inputValues[-idx]
+    
     inputValues = mapply(function(name, value) {
       ## this is important to be able to have all checkboxes unchecked
       if (is.null(value))
