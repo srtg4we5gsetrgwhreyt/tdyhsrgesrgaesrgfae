@@ -113,7 +113,7 @@ shinyURL.server = function(session, options) {
   clientData = isolate(reactiveValuesToList(session$clientData))
   
   ## base URL which is not supposed to change
-  baseURL = paste0("http://tools.rotationinvest.com/",
+  baseURL = paste0("http://tools.rotationinvest.com",
                    # clientData$url_hostname,
                    # ## add port number if present
                    # if( (port=clientData$url_port)!="" ) paste0(":", port),
