@@ -39,6 +39,19 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
           window.history.replaceState(null, document.title, '?' + event.message.value);
       })"),
     
+    tags$script(type="text/javascript",
+      HTML("
+                function myCopyFunction() {
+alert('trying');
+                  var copyText = document.getElementById('.copyToClipboard');
+                  copyText.select();
+                  document.execCommand('copy');
+                  alert('Copied the text: ' + copyText.value);
+                }
+              ")
+    ),
+    
+    
     ## shinyURL widget
     if (isTRUE(display)) {
       div(
@@ -53,18 +66,6 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
         ## Copy button
         if ( isTRUE(copyURL) )
           tagList(
-            tags$script(
-              HTML("
-                function myCopyFunction() {
-alert('trying');
-                  var copyText = document.getElementById('.copyToClipboard');
-                  copyText.select();
-                  document.execCommand('copy');
-                  alert('Copied the text: ' + copyText.value);
-                }
-              ")
-            ),
-            
             tags$div(
               HTML("<button onclick='myCopyFunction()'>Copy text</button>")
             )
