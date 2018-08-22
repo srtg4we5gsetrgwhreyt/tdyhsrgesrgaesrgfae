@@ -28,12 +28,7 @@ options(scipen=999)
 #'   if missing defaults to the local copy distributed with shinyURL
 #' @rdname shinyURL
 #' @export
-shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE, ZeroClipboard.swf) {
-  if (missing(ZeroClipboard.swf)) {
-    addResourcePath("shinyURL", system.file("zeroclipboard", package = "shinyURL"))
-    ZeroClipboard.swf = "shinyURL/ZeroClipboard.swf"
-  }
-  
+shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE) {
   tagList(
     ## hidden input which stores the URL query string
     tags$input(type="text", id=".shinyURL.queryString", style="display: none;"),
@@ -52,23 +47,7 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
         ## URL text field
         if (!is.null(label) && !is.na(label)) tags$label(label, `for` = inputId),
         tags$input(id = inputId, type="text", class="form-control", value="", style="margin-bottom: 5px;",
-                   title = "URL of the current view state of the app"),
-        
-        ## Copy button
-        if ( isTRUE(copyURL) )
-          tagList(
-            tags$button(id=".copyToClipboard", icon("clipboard"), "Copy", title="Copy to clipboard", type="button", class="btn btn-default", "data-clipboard-target"=inputId),
-            includeScript(system.file("zeroclipboard", "ZeroClipboard.min.js", package="shinyURL"), type="text/javascript"),
-            tags$script(
-              type="text/javascript",
-              sprintf("ZeroClipboard.config( { swfPath: '%s' } );", ZeroClipboard.swf),
-              "var client = new ZeroClipboard( document.getElementById('.copyToClipboard') );"
-            )
-          ),
-        
-        ## TinyURL button
-        if ( isTRUE(tinyURL) )
-          actionButton(".getTinyURL", "TinyURL", icon=icon("compress"), title="Shorten URL")
+                   title = "URL of the current view state of the app")
       )
     }
   )
