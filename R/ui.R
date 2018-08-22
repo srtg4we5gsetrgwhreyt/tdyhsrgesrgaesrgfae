@@ -40,17 +40,14 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
       })"),
     
     tags$script(type="text/javascript",
-      HTML("
-                function myCopyFunction() {
-
+                "function myCopyFunction() {
                   var copyText = document.getElementById('.copyToClipboard');
                   copyText.select();
-
+                  alert('document.queryCommandSupported('copy')');
                   document.execCommand('copy');
-alert('trying');
+                  
                   alert('Copied the text: ' + copyText.value);
-                }
-              ")
+                }"
     ),
     
     
