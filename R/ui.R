@@ -63,8 +63,10 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
                 }
               ")
             ),
-            tags$button(id=".copyToClipboard", onclick="myCopyFunction()",icon("clipboard"), "Copy", title="Copy to clipboard", type="button", class="btn btn-default", "data-clipboard-target"=inputId)
             
+            tags$div(
+              HTML("<button onclick='myCopyFunction()'>Copy text</button>")
+            )
             
           ),
         
