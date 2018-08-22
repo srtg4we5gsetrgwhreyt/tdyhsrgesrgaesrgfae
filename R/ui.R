@@ -45,8 +45,9 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
 
                   var copyText = document.getElementById('.copyToClipboard');
                   copyText.select();
-alert('trying');
+
                   document.execCommand('copy');
+alert('trying');
                   alert('Copied the text: ' + copyText.value);
                 }
               ")
