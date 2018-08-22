@@ -28,11 +28,7 @@ options(scipen=999)
 #'   if missing defaults to the local copy distributed with shinyURL
 #' @rdname shinyURL
 #' @export
-shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE, ZeroClipboard.swf) {
-  if (missing(ZeroClipboard.swf)) {
-    addResourcePath("shinyURL", system.file("zeroclipboard", package = "shinyURL"))
-    ZeroClipboard.swf = "shinyURL/ZeroClipboard.swf"
-  }
+shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE) {
   
   tagList(
     ## hidden input which stores the URL query string
@@ -63,6 +59,7 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
                   var copyText = document.getElementById('.copyToClipboard');
                   copyText.select();
                   document.execCommand('copy');
+                  alert('Copied the text: ' + copyText.value);
                 }
               ")
             ),
