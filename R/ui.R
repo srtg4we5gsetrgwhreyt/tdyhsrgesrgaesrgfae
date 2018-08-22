@@ -56,6 +56,7 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
             tags$script(
               HTML("
                 function myCopyFunction() {
+alert('trying');
                   var copyText = document.getElementById('.copyToClipboard');
                   copyText.select();
                   document.execCommand('copy');
