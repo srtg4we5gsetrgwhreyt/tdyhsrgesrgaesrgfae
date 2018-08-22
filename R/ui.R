@@ -29,6 +29,10 @@ options(scipen=999)
 #' @rdname shinyURL
 #' @export
 shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE, ZeroClipboard.swf) {
+  if (missing(ZeroClipboard.swf)) {
+    addResourcePath("shinyURL", system.file("zeroclipboard", package = "shinyURL"))
+    ZeroClipboard.swf = "shinyURL/ZeroClipboard.swf"
+  }
   
   tagList(
     ## hidden input which stores the URL query string
