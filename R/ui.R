@@ -31,7 +31,7 @@ options(scipen=999)
 shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE) {
   tagList(
     ## hidden input which stores the URL query string
-    tags$input(type="text", id=".shinyURL.queryString", style="display: none;"),
+    tags$input(type="url", id=".shinyURL.queryString", style="display: none;"),
     tags$script(
       type="text/javascript",
       "$(\"input[id='.shinyURL.queryString']\").on('shiny:updateinput', function(event) {
