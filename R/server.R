@@ -86,24 +86,25 @@ shinyURL.server = function(session, options) {
     }
     else {
       try({
-      ## decode range vectors (sliders and dates)
-      if (length(inputValues[[i]])>1L)
-        q = unlist(strsplit(q, ","))
-      ## use information about the class of the inputs when initializing them
-      cl = class(inputValues[[i]])
-      ## promote integer to numeric because numericInputs can contain either
-      if (cl=="integer")
-        cl = "numeric" 
-      switch(cl,
-             ## selectInput without default value is initially set to NULL
-             NULL = q,
-             ## Dates need to be handled separately
-             Date = format(as.Date(as.numeric(q), "1970-01-01"), "%Y-%m-%d"),
-             ## default case; should allow to correctly decode TRUE/FALSE
-             as(q, cl)
-      )
+            ## decode range vectors (sliders and dates)
+            if (length(inputValues[[i]])>1L)
+              q = unlist(strsplit(q, ","))
+            ## use information about the class of the inputs when initializing them
+            cl = class(inputValues[[i]])
+            ## promote integer to numeric because numericInputs can contain either
+            if (cl=="integer")
+              cl = "numeric" 
+            switch(cl,
+                   ## selectInput without default value is initially set to NULL
+                   NULL = q,
+                   ## Dates need to be handled separately
+                   Date = format(as.Date(as.numeric(q), "1970-01-01"), "%Y-%m-%d"),
+                   ## default case; should allow to correctly decode TRUE/FALSE
+                   as(q, cl)
+            )
+        })
     }
-          })
+          
     debugMsg("init", names(queryValues)[i], "->", q)
     session$sendInputMessage(names(queryValues)[i], list(value=q))
   }
