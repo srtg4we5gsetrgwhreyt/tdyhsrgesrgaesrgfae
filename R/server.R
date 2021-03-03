@@ -139,6 +139,16 @@ shinyURL.server = function(session, options) {
     idx = grep("_date_window$", names(inputValues))
     if ( length(idx) > 0 ) inputValues = inputValues[-idx]
     
+    ## remove plotly specific inputs
+    idx = grep("plotly_afterplot-A", names(inputValues))
+    if ( length(idx) > 0 ) inputValues = inputValues[-idx]
+    
+    ## remove rank table specific inputs
+    idx = grep("rankTable_rows_current", names(inputValues))
+    if ( length(idx) > 0 ) inputValues = inputValues[-idx]
+    idx = grep("rankTable_rows_all", names(inputValues))
+    if ( length(idx) > 0 ) inputValues = inputValues[-idx]
+    
     inputValues = mapply(function(name, value) {
       ## this is important to be able to have all checkboxes unchecked
       if (is.null(value))
