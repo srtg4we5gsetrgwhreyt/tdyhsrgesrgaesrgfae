@@ -85,6 +85,7 @@ shinyURL.server = function(session, options) {
       unlist(q, use.names=FALSE)
     }
     else {
+      try({
       ## decode range vectors (sliders and dates)
       if (length(inputValues[[i]])>1L)
         q = unlist(strsplit(q, ","))
@@ -102,6 +103,7 @@ shinyURL.server = function(session, options) {
              as(q, cl)
       )
     }
+          })
     debugMsg("init", names(queryValues)[i], "->", q)
     session$sendInputMessage(names(queryValues)[i], list(value=q))
   }
