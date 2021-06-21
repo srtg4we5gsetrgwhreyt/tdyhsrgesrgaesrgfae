@@ -57,19 +57,21 @@ shinyURL.server = function(session, options) {
     ## iterate through available inputs as long as there are any uninitialized 
     ## values in queryValues the expression below depends on inputs which is 
     ## neccassary to restore dynamic UIs
-    inputValues = reactiveValuesToList(session$input, all.names=FALSE)
-    updateValues = intersect(names(inputValues), names(queryValues))
-    queryIds = match(updateValues, names(queryValues))
-    inputIds = match(updateValues, names(inputValues))
+     try({
+          inputValues = reactiveValuesToList(session$input, all.names=FALSE)
+          updateValues = intersect(names(inputValues), names(queryValues))
+          queryIds = match(updateValues, names(queryValues))
+          inputIds = match(updateValues, names(inputValues))
+       })
     
     if ( length(queryIds) > 0 ) queryValues <<- queryValues[-queryIds]
     
     ## schedule the update only after all input messages have been sent out (see
     ## the 'flushOutput' function in shiny.R). This is to avoid potential 
     ## overwriting by some update events from user code
-    #session$onFlushed(function() {
-    .initInputs(session, queryValuesCopy[queryIds], inputValues[inputIds])
-    #})
+    session$onFlushed(function() {
+       try({.initInputs(session, queryValuesCopy[queryIds], inputValues[inputIds])})
+    })
     
     ## suspend if nothing to do
     if ( length(queryValues) == 0L )
