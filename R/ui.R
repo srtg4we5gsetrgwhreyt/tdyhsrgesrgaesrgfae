@@ -29,6 +29,7 @@ options(scipen=999)
 #' @rdname shinyURL
 #' @export
 shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copyURL = TRUE, tinyURL = TRUE) {
+  try({
   tagList(
     ## hidden input which stores the URL query string
     tags$input(type="url", id=".shinyURL.queryString", style="display: none;"),
@@ -51,4 +52,5 @@ shinyURL.ui = function(display = TRUE, label = "Share URL", width = "100%", copy
       )
     }
   )
+    })
 }
