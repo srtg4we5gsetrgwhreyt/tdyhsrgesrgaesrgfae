@@ -19,6 +19,8 @@ options(scipen=999)
 #' @rdname shinyURL
 #' @export
 shinyURL.server = function(session, options) {
+  try({
+    
   if (missing(session))
     session = getDefaultReactiveDomain()
   
@@ -26,6 +28,7 @@ shinyURL.server = function(session, options) {
     options(setNames(options, paste("shinyURL", names(options), sep=".")))
   
   debugMsg("ShinyURL initializes")
+  
   
   ## initialize from query string
   init = .initFromURL(session, init)
@@ -40,7 +43,8 @@ shinyURL.server = function(session, options) {
   ## browser is refreshed switched off because it interferes with dynamic UIs 
   ## invalidate = .invalidateOnInit(session, invalidate)
   
-  url
+  return(url)
+    })
 }
 
 
@@ -76,7 +80,7 @@ shinyURL.server = function(session, options) {
 
 
 .initInputs = function(session, queryValues, inputValues) {
-  
+  try({
   for (i in seq_along(queryValues)) {
     q = queryValues[[i]]
     
@@ -108,6 +112,7 @@ shinyURL.server = function(session, options) {
     debugMsg("init", names(queryValues)[i], "->", q)
     session$sendInputMessage(names(queryValues)[i], list(value=q))
   }
+    })
 }
 
 
